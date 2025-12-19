@@ -1,0 +1,20 @@
+--- 1. CHECKING SYSTEM TIME ---
+Local System Time: 2025-12-17 03:06:17.514038
+Google Server Time (GMT): Tue, 16 Dec 2025 22:06:18 GMT
+Year matches.
+
+
+--- 3. CHECKING BOT TOKEN ---
+[OK] Bot token format looks plausible.
+[OK] Token works! Bot info: mytest00190_bot
+
+
+--- 2. CHECKING GOOGLE AUTH & PERMISSIONS ---
+JSON found at: service_account.json
+[OK] Credentials file loaded successfully.
+Service Account Email: excel-bot@analisticsforbusiness.iam.gserviceaccount.com
+[OK] gspread authorized.
+Attempting to open Sheet ID: 1aqDia4Fgi3-_hq-l7t0X3JO8AA0j2_kFY2PNO3jA6vA
+[FAIL] Google Sheets Error: 
+
+

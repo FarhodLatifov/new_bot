@@ -1,0 +1,19 @@
+--- Verifying Configuration ---
+Traceback (most recent call last):
+  File "C:\Users\hptj\Desktop\tg_bot_2\verify_updates.py", line 50, in <module>
+    asyncio.run(verify_updates())
+  File "C:\Users\hptj\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\hptj\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\hptj\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 686, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\hptj\Desktop\tg_bot_2\verify_updates.py", line 8, in verify_updates
+    print(f"MSG_PAID: {texts.MSG_PAID}")
+  File "C:\Users\hptj\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1251.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f4b0' in position 10: character maps to <undefined>
