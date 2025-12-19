@@ -58,7 +58,7 @@ async def start_status_polling(bot: Bot):
                             # "Your request #<Request ID> status has changed to: <New Status>.
                             # Comment: <Comment from the table, if any>.
                             # Estimate: <Link or note if field filled>"
-                            message = f"Your request #{req_id} status has changed to: {english_status}.\nComment: {comment}.\nEstimate: {estimate_link}"
+                            message = f"Статус вашей заявки #{req_id} изменён на: {english_status}.\nКомментарий: {comment}.\nСмета: {estimate_link}"
                              
                             await bot.send_message(int(tg_id), message)
                             logging.info(f"Notified user {tg_id} about status change for req {req_id}")
