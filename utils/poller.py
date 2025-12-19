@@ -19,6 +19,12 @@ async def start_status_polling(bot: Bot):
     logging.info("Starting status poller...")
     global previous_statuses, previous_full_data
     
+    # Check if Google Sheets is configured
+    sheet = google_sheets.get_service()
+    if sheet is None:
+        logging.warning("Google Sheets not configured. Poller will not run.")
+        return
+    
     # Initial fetch to populate state without notifying
     initial_data = await google_sheets.get_all_requests_status()
     previous_statuses = {k: v['status'] for k, v in initial_data.items()}

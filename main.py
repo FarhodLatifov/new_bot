@@ -2,8 +2,9 @@ import asyncio
 import logging
 import sys
 import time
+import os
 
-from aiogram.exceptions import TelegramRetryAfter, TelegramAPIError
+from aiogram.exceptions import TelegramRetryAfter, TelegramAPIError, TelegramConflictError
 from loader import dp, bot
 from handlers import start, client, partner, common, my_requests
 from utils import poller
@@ -30,11 +31,16 @@ async def main() -> None:
     
     # Retry mechanism for polling
     retry_count = 0
-    max_retries = 5
+    max_retries = 10
     while retry_count < max_retries:
         try:
             await dp.start_polling(bot)
             break  # If successful, break out of retry loop
+        except TelegramConflictError as e:
+            retry_count += 1
+            logging.error(f"Telegram conflict error: {e}. This usually means another instance is running. Attempt {retry_count}/{max_retries}")
+            # Wait longer between retries for conflict errors
+            await asyncio.sleep(min(30, retry_count * 5))  # Increase wait time with each retry
         except TelegramRetryAfter as e:
             retry_count += 1
             wait_time = e.retry_after
