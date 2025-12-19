@@ -26,7 +26,7 @@ def load_config(path: str = None):
             admin_ids=list(map(int, env.list("ADMIN_IDS"))),
         ),
         google_sheets=GoogleSheets(
-            service_account_file=env.str("GOOGLE_SERVICE_ACCOUNT_FILE", "service_account.json"),
+            service_account_file=env.str("GOOGLE_SERVICE_ACCOUNT_FILE", "service_account.json.example"),
             spreadsheet_id=env.str("GOOGLE_SPREADSHEET_ID", ""),
         ),
     )
