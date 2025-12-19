@@ -57,19 +57,7 @@ COL_STATUS = 15
 COL_AMOUNT = 16
 COL_TG_ID = 17
 
-# Тестовые учетные данные (только для демонстрации!)
-TEST_SERVICE_ACCOUNT_INFO = {
-    "type": "service_account",
-    "project_id": "demo-project-id",
-    "private_key_id": "demo-private-key-id",
-    "private_key": "-----BEGIN PRIVATE KEY-----\nDEMO_PRIVATE_KEY\n-----END PRIVATE KEY-----\n",
-    "client_email": "demo-service-account@demo-project-id.iam.gserviceaccount.com",
-    "client_id": "demo-client-id",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/demo-service-account%40demo-project-id.iam.gserviceaccount.com"
-}
+
 
 def get_service():
     if not config.google_sheets.spreadsheet_id:
@@ -90,9 +78,9 @@ def get_service():
                 config.google_sheets.service_account_file, scopes=SCOPES
             )
         else:
-            # Для тестирования используем демо учетные данные
-            logging.warning("Using demo credentials for testing purposes")
-            creds = Credentials.from_service_account_info(TEST_SERVICE_ACCOUNT_INFO, scopes=SCOPES)
+            # Если учетные данные не настроены, возвращаем None вместо использования демо данных
+            logging.warning("Google Sheets credentials not configured. Skipping Google Sheets integration.")
+            return None
         
         client = gspread.authorize(creds)
         sheet = client.open_by_key(config.google_sheets.spreadsheet_id).sheet1
