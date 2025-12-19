@@ -2,6 +2,8 @@ import datetime
 import gspread
 import traceback
 import logging
+import json
+import os
 from google.oauth2.service_account import Credentials
 from config import config
 
@@ -56,14 +58,29 @@ COL_AMOUNT = 16
 COL_TG_ID = 17
 
 def get_service():
-    if not config.google_sheets.service_account_file or not config.google_sheets.spreadsheet_id:
+    if not config.google_sheets.spreadsheet_id:
         logging.error("Google Sheets not configured.")
         return None
     
     try:
-        creds = Credentials.from_service_account_file(
-            config.google_sheets.service_account_file, scopes=SCOPES
-        )
+        # Check if service account JSON is provided as environment variable
+        service_account_json = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
+        
+        if service_account_json:
+            # Parse JSON from environment variable
+            service_account_info = json.loads(service_account_json)
+            creds = Credentials.from_service_account_info(
+                service_account_info, scopes=SCOPES
+            )
+        else:
+            # Fall back to file-based approach
+            if not config.google_sheets.service_account_file:
+                logging.error("Google Sheets service account not configured.")
+                return None
+            creds = Credentials.from_service_account_file(
+                config.google_sheets.service_account_file, scopes=SCOPES
+            )
+        
         client = gspread.authorize(creds)
         sheet = client.open_by_key(config.google_sheets.spreadsheet_id).sheet1
         
